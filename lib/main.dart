@@ -1,6 +1,7 @@
-import 'package:fashion_ecommerce/screens/home.dart';
 import 'package:fashion_ecommerce/utils/app_theme.dart';
 import 'package:flutter/material.dart';
+
+import 'main_wrappar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.appTheme,
-      home: const Home(),
+      home: const MainWrappar(),
     );
   }
 }
