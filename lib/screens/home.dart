@@ -1,6 +1,7 @@
 import 'package:fashion_ecommerce/data/app_data.dart';
 import 'package:fashion_ecommerce/model/base_model.dart';
 import 'package:fashion_ecommerce/model/categories_model.dart';
+import 'package:fashion_ecommerce/screens/details.dart';
 import 'package:fashion_ecommerce/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
@@ -128,8 +129,19 @@ class _HomeState extends State<Home> {
                               itemCount: mainList.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                    onTap: () {},
-                                    child: view(index, theme, size));
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Details(
+                                          data: mainList[index],
+                                          isComeFromMostPapularPart: false,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: view(index, theme, size),
+                                );
                               },
                             ),
                           ),
@@ -176,29 +188,42 @@ class _HomeState extends State<Home> {
                                 itemBuilder: (context, index) {
                                   BaseModel data = mainList[index];
                                   return GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Details(
+                                            data: mainList[index],
+                                            isComeFromMostPapularPart: true,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     child: Column(
                                       children: [
-                                        Container(
-                                          width: size.width * 0.5,
-                                          height: size.height * 0.3,
-                                          margin: const EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(3),
-                                              image: DecorationImage(
-                                                image:
-                                                    AssetImage(data.imageUrl),
-                                                fit: BoxFit.cover,
-                                              ),
-                                              boxShadow: const [
-                                                BoxShadow(
-                                                  offset: Offset(0, 4),
-                                                  blurRadius: 4,
-                                                  color: Color.fromARGB(
-                                                      61, 0, 0, 0),
-                                                )
-                                              ]),
+                                        Hero(
+                                          tag: data.imageUrl,
+                                          child: Container(
+                                            width: size.width * 0.5,
+                                            height: size.height * 0.3,
+                                            margin: const EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(3),
+                                                image: DecorationImage(
+                                                  image:
+                                                      AssetImage(data.imageUrl),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                    offset: Offset(0, 4),
+                                                    blurRadius: 4,
+                                                    color: Color.fromARGB(
+                                                        61, 0, 0, 0),
+                                                  )
+                                                ]),
+                                          ),
                                         ),
                                         Padding(
                                           padding:
@@ -249,22 +274,25 @@ class _HomeState extends State<Home> {
       padding: const EdgeInsets.only(top: 15.0),
       child: Column(
         children: [
-          Container(
-            width: size.width * 0.6,
-            height: size.height * 0.35,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(3),
-                image: DecorationImage(
-                  image: AssetImage(baseModel.imageUrl),
-                  fit: BoxFit.cover,
-                ),
-                boxShadow: const [
-                  BoxShadow(
-                    offset: Offset(0, 4),
-                    blurRadius: 4,
-                    color: Color.fromARGB(61, 0, 0, 0),
-                  )
-                ]),
+          Hero(
+            tag: baseModel.id,
+            child: Container(
+              width: size.width * 0.6,
+              height: size.height * 0.35,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(3),
+                  image: DecorationImage(
+                    image: AssetImage(baseModel.imageUrl),
+                    fit: BoxFit.cover,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      offset: Offset(0, 4),
+                      blurRadius: 4,
+                      color: Color.fromARGB(61, 0, 0, 0),
+                    )
+                  ]),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
