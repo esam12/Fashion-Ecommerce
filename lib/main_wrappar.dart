@@ -95,9 +95,7 @@ class _MainWrapparState extends State<MainWrappar> {
           BottomBarItem(iconData: Icons.settings),
           BottomBarItem(iconData: Icons.mail),
         ],
-        onSelect: (index) {
-          setState(() {});
-        },
+        onSelect: (index) {},
       ),
     );
   }

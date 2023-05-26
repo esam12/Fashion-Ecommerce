@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:fashion_ecommerce/screens/details.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-
 import '../data/app_data.dart';
 import '../model/base_model.dart';
 import '../utils/constants.dart';
@@ -90,29 +90,41 @@ class _SearchState extends State<Search> {
               height: size.height * 0.01,
             ),
             Expanded(
-                child: itemsOnSearch.isNotEmpty
-                    ? GridView.builder(
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: itemsOnSearch.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.63,
-                        ),
-                        itemBuilder: (context, index) {
-                          BaseModel data = itemsOnSearch[index];
-                          return FadeInUp(
-                            delay: Duration(milliseconds: 100 * index),
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Positioned(
-                                    top: size.height * 0.02,
-                                    right: size.height * 0.01,
-                                    left: size.height * 0.01,
+              child: itemsOnSearch.isNotEmpty
+                  ? GridView.builder(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: itemsOnSearch.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.63,
+                      ),
+                      itemBuilder: (context, index) {
+                        BaseModel data = itemsOnSearch[index];
+                        return FadeInUp(
+                          delay: Duration(milliseconds: 100 * index),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Details(
+                                    data: mainList[index],
+                                    isComeFromMostPapularPart: false,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Positioned(
+                                  top: size.height * 0.02,
+                                  right: size.height * 0.01,
+                                  left: size.height * 0.01,
+                                  child: Hero(
+                                    tag: data.id,
                                     child: Container(
                                       width: size.width * 0.5,
                                       height: size.height * 0.3,
@@ -134,85 +146,87 @@ class _SearchState extends State<Search> {
                                           ]),
                                     ),
                                   ),
-                                  Positioned(
-                                    bottom: size.height * 0.04,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 2.0),
-                                      child: Text(
-                                        data.name,
-                                        style: textTheme.displayMedium,
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: size.height * 0.01,
-                                    child: RichText(
-                                      text: TextSpan(
-                                          text: "€",
-                                          style: textTheme.titleSmall?.copyWith(
-                                            color: primaryColor,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                              text: "${data.price}",
-                                              style: textTheme.titleSmall
-                                                  ?.copyWith(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            )
-                                          ]),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 0,
-                                    top: size.height * 0.01,
-                                    child: CircleAvatar(
-                                      backgroundColor: primaryColor,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            print(data.name);
-                                          });
-                                        },
-                                        icon: const Icon(
-                                          LineIcons.addToShoppingCart,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        })
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FadeInUp(
-                            delay: const Duration(milliseconds: 200),
-                            child: const Image(
-                              image:
-                                  AssetImage("assets/images/search_fail.png"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.01,
-                          ),
-                          FadeInUp(
-                              delay: const Duration(milliseconds: 250),
-                              child: const Text(
-                                "Not Result Found",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
                                 ),
-                              ))
-                        ],
-                      ))
+                                Positioned(
+                                  bottom: size.height * 0.04,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 2.0),
+                                    child: Text(
+                                      data.name,
+                                      style: textTheme.displayMedium,
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: size.height * 0.01,
+                                  child: RichText(
+                                    text: TextSpan(
+                                        text: "€",
+                                        style: textTheme.titleSmall?.copyWith(
+                                          color: primaryColor,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: "${data.price}",
+                                            style:
+                                                textTheme.titleSmall?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )
+                                        ]),
+                                  ),
+                                ),
+                                Positioned(
+                                  right: 0,
+                                  top: size.height * 0.01,
+                                  child: CircleAvatar(
+                                    backgroundColor: primaryColor,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          print(data.name);
+                                        });
+                                      },
+                                      icon: const Icon(
+                                        LineIcons.addToShoppingCart,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      })
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 200),
+                          child: const Image(
+                            image: AssetImage("assets/images/search_fail.png"),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.01,
+                        ),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 250),
+                          child: const Text(
+                            "Not Result Found",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+            )
           ]),
         ),
       ),
