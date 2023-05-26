@@ -128,7 +128,10 @@ class _DetailsState extends State<Details> {
                         delay: const Duration(milliseconds: 400),
                         child: const Padding(
                           padding: EdgeInsets.only(
-                              top: 18.0, left: 10.0, bottom: 10.0),
+                            top: 18.0,
+                            left: 10.0,
+                            bottom: 10.0,
+                          ),
                           child: Text(
                             "Select Size",
                             style: TextStyle(
