@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../screens/details.dart';
 import '../utils/constants.dart';
 
 class ReUseableTextDetails extends StatelessWidget {

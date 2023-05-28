@@ -3,6 +3,7 @@ import 'package:fashion_ecommerce/screens/details.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import '../data/app_data.dart';
+import '../methods/add_to_cart.dart';
 import '../model/base_model.dart';
 import '../utils/constants.dart';
 
@@ -186,7 +187,7 @@ class _SearchState extends State<Search> {
                                     child: IconButton(
                                       onPressed: () {
                                         setState(() {
-                                          print(data.name);
+                                          AddToCart.addToCart(data, context);
                                         });
                                       },
                                       icon: const Icon(

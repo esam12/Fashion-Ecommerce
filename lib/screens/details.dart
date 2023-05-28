@@ -1,8 +1,10 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:fashion_ecommerce/methods/add_to_cart.dart';
 import 'package:fashion_ecommerce/model/base_model.dart';
 import 'package:fashion_ecommerce/utils/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../widget/reuseable_button.dart';
 import '../widget/reuseable_text.dart';
 
 class Details extends StatefulWidget {
@@ -16,6 +18,8 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
+  int selectedSize = 3;
+  int selectedColor = 2;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -74,6 +78,7 @@ class _DetailsState extends State<Details> {
                 child: SizedBox(
                   width: size.width,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,6 +94,7 @@ class _DetailsState extends State<Details> {
                       SizedBox(
                         height: size.height * 0.006,
                       ),
+
                       Row(
                         children: [
                           const Icon(
@@ -109,8 +115,145 @@ class _DetailsState extends State<Details> {
                             "${widget.data.review} K+ review",
                             style: theme.displaySmall
                                 ?.copyWith(color: Colors.grey),
-                          )
+                          ),
+                          const Icon(
+                            Icons.arrow_forward_ios_sharp,
+                            color: Colors.grey,
+                            size: 15,
+                          ),
                         ],
+                      ),
+
+                      // Select Size
+                      FadeInUp(
+                        delay: const Duration(milliseconds: 400),
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                            top: 18.0,
+                            left: 10.0,
+                            bottom: 10.0,
+                          ),
+                          child: Text(
+                            "Select Size",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      // Sizes
+                      FadeInUp(
+                        delay: const Duration(milliseconds: 500),
+                        child: SizedBox(
+                          width: size.width * 0.9,
+                          height: size.height * 0.08,
+                          child: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: sizes.length,
+                              itemBuilder: (context, index) {
+                                var data = sizes[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      selectedSize = index;
+                                    });
+                                  },
+                                  child: AnimatedContainer(
+                                    margin: const EdgeInsets.all(10),
+                                    duration: const Duration(milliseconds: 200),
+                                    width: size.width * 0.12,
+                                    decoration: BoxDecoration(
+                                        color: selectedSize == index
+                                            ? primaryColor
+                                            : Colors.transparent,
+                                        borderRadius: BorderRadius.circular(15),
+                                        border:
+                                            Border.all(color: primaryColor)),
+                                    child: Center(
+                                      child: Text(
+                                        data,
+                                        style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w500,
+                                            color: selectedSize == index
+                                                ? Colors.white
+                                                : Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ),
+                      ),
+
+                      // Select Color
+                      FadeInUp(
+                        delay: const Duration(milliseconds: 600),
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                              top: 18.0, left: 10.0, bottom: 10.0),
+                          child: Text(
+                            "Select Color",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      // Colors
+                      FadeInUp(
+                        delay: const Duration(milliseconds: 700),
+                        child: SizedBox(
+                          width: size.width,
+                          height: size.height * 0.08,
+                          child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: colors.length,
+                              itemBuilder: (context, index) {
+                                var data = colors[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      selectedColor = index;
+                                    });
+                                  },
+                                  child: AnimatedContainer(
+                                    margin: const EdgeInsets.all(10),
+                                    duration: const Duration(milliseconds: 200),
+                                    width: size.width * 0.12,
+                                    decoration: BoxDecoration(
+                                      color: data,
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                        color: selectedColor == index
+                                            ? primaryColor
+                                            : Colors.transparent,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ),
+                      ),
+
+                      FadeInUp(
+                        delay: const Duration(milliseconds: 800),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: size.height * 0.03),
+                          child: ReUseableButton(
+                            size: size,
+                            text: 'Add to cart',
+                            onPressed: () {
+                              AddToCart.addToCart(widget.data, context);
+                            },
+                          ),
+                        ),
                       )
                     ],
                   ),

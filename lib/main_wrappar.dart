@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bottom_bar_matu/bottom_bar_matu.dart';
+import 'package:fashion_ecommerce/screens/cart.dart';
 import 'package:fashion_ecommerce/screens/home.dart';
 import 'package:fashion_ecommerce/screens/search.dart';
 import 'package:fashion_ecommerce/utils/constants.dart';
@@ -80,7 +81,14 @@ class _MainWrapparState extends State<MainWrappar> {
               color: Colors.black,
               size: 30,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Cart(),
+                ),
+              );
+            },
           ),
         ],
       ),
